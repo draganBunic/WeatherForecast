@@ -1,0 +1,85 @@
+﻿@{
+    ViewData["Title"] = "Weather Forecast";
+}
+
+<div class="d-flex justify-content-center">
+    <div class="info-side1">
+        <label class="lab">
+            DEPARTURE
+        </label>
+        <div class="row">
+            <div class="location-container row">
+                <div class="col-md-12 col-lg-6">
+                    <input type="text" id="departureID" placeholder="Ex. 11.43,12.12" class="form-control">
+                </div>
+                <div class="col-md-12 col-lg-6">
+                    <button class="location-button" id="button1" onclick="getGPS(true)">
+                        <i data-feather="map-pin"></i>
+                        <span>Check</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="today-info">
+            <div class="dew-point">
+                <span class="title">Dew Point</span><span class="value" id="dewPoint1"></span>
+                <div class="clear"></div>
+            </div>
+            <div class="humidity">
+                <span class="title">Humidity</span><span class="value" id="humidity1"></span>
+                <div class="clear"></div>
+            </div>
+            <div class="wind">
+                <span class="title">Temperature</span><span class="value" id="temperature1"></span>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <!--<img class="d-flex justify-content-center" src="~/lib/img/Cloud.png" style="opacity: 1; margin-top: 100px; width:50px; height:50px; ">-->
+        <ul class="week-list">
+            <li><div class="day-temp"><span id="fog1"><br /></span></div><span class="day-name"> <br> Fog</span><i class="day-icon" id="fogIcon1" data-feather="sun" style="opacity: 0; margin-top: 70px;"></i></li>
+            <li><div class="day-temp"><span id="lowClouds1"><br /></span></div><span class="day-name">Low <br> Clouds</span><i class="day-icon" id="lowCloudsIcon1" data-feather="cloud" style="opacity: 0; margin-top: 100px;"></i></li>
+            <li><div class="day-temp"><span id="middleClouds1"><br /></span></div><span class="day-name">Medium <br> Clouds</span><i class="day-icon" id="middleCloudsIcon1" data-feather="cloud" style="opacity: 0; margin-top: 70px;"></i></li>
+            <li><div class="day-temp"><span id="highClouds1"><br /></span></div><span class="day-name">High <br> Clouds</span><i class="day-icon" id="highCloudsIcon1" data-feather="cloud" style="opacity: 0; margin-top: 40px;"></i></li>
+            <div class="clear"></div>
+        </ul>
+    </div>
+    <div class="info-side2">
+        <span class="lab">DESTINATION</span>
+        <div class="row">
+            <div class="location-container row">
+                <div class="col-md-12 col-lg-6">
+                    <input type="text" id="destinationID" placeholder="Ex. Banjaluka" class="form-control">
+                </div>
+                <div class="col-md-12 col-lg-6">
+                    <button class="location-button" id="button2" onclick="getGPS(false)">
+                        <i data-feather="map-pin"></i>
+                        <span>Check</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="today-info">
+            <div class="dew-point">
+                <span class="title">Dew Point</span><span class="value" id="dewPoint2"></span>
+                <div class="clear"></div>
+            </div>
+            <div class="humidity">
+                <span class="title">Humidity</span><span class="value" id="humidity2"></span>
+                <div class="clear"></div>
+            </div>
+            <div class="wind">
+                <span class="title">Temperature</span><span class="value" id="temperature2"></span>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <ul class="week-list">
+            <li><div class="day-temp"><span id="fog2"><br /></span></div><span class="day-name"> <br> Fog</span><i class="day-icon" id="fogIcon2" data-feather="sun" style="opacity: 1; margin-top: 70px;"></i></li>
+            <li><div class="day-temp"><span id="lowClouds2"><br /></span></div><span class="day-name">Low <br> Clouds</span><i class="day-icon" id="lowCloudsIcon2" data-feather="cloud" style="opacity: 1; margin-top: 100px;"></i></li>
+            <li><div class="day-temp"><span id="middleClouds2"><br /></span></div><span class="day-name">Medium <br> Clouds</span><i class="day-icon" id="middleCloudsIcon2" data-feather="cloud" style="opacity: 1; margin-top: 70px;"></i></li>
+            <li><div class="day-temp"><span id="highClouds2"><br /></span></div><span class="day-name">High <br> Clouds</span><i class="day-icon" id="highCloudsIcon2" data-feather="cloud" style="opacity: 1; margin-top: 40px;"></i></li>
+            <div class="clear"></div>
+        </ul>
+    </div>
+</div>

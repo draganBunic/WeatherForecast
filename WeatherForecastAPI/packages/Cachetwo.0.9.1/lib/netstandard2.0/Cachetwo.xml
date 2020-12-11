@@ -1,0 +1,303 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cachetwo</name>
+    </assembly>
+    <members>
+        <member name="T:Cachetwo.Distributed.BinaryConvert">
+            <summary>
+            Provides methods for converting between .NET types and binary data.
+            </summary>
+        </member>
+        <member name="M:Cachetwo.Distributed.BinaryConvert.Serialize(System.Object)">
+            <summary>
+            Serializes the specified object to binary data.
+            </summary>
+            <param name="value">The object to serialize.</param>
+            <returns>A binary data representation of the object.</returns>
+            <exception cref="T:System.FormatException">if serialization fails</exception>
+        </member>
+        <member name="M:Cachetwo.Distributed.BinaryConvert.Deserialize``1(System.Byte[])">
+            <summary>
+            Deserializes the binary data to the specified .NET type.
+            </summary>
+            <typeparam name="T">The type of the object to deserialize to.</typeparam>
+            <param name="value">The binary data to deserialize.</param>
+            <returns>The deserialized object from the binary data.</returns>
+            <exception cref="T:System.FormatException">if deserialization fails</exception>
+        </member>
+        <member name="M:Cachetwo.Distributed.BinaryConvert.Deserialize(System.Byte[],System.Type)">
+            <summary>
+            Deserializes the binary data to the specified .NET type.
+            </summary>
+            <param name="value">The binary data to deserialize.</param>
+            <param name="valueType">The <see cref="T:System.Type"/> of object being deserialized.</param>
+            <returns>The deserialized object from the binary data.</returns>
+            <exception cref="T:System.FormatException">if deserialization fails</exception>
+        </member>
+        <member name="T:Cachetwo.Distributed.BinaryConvert.RoundTripBsonConvert">
+            <summary>
+            Like <see cref="T:Newtonsoft.Json.JsonConvert"/>, but for BSON data for a round trip of serialization and deserialization.
+            </summary>
+        </member>
+        <member name="T:Cachetwo.Distributed.BinaryConvert.RoundTripBsonConvert.IsoDateTimeConverter">
+            <summary>
+            A custom version of <see cref="T:Newtonsoft.Json.Converters.DateTimeConverterBase"/> that serializes <see cref="T:System.DateTime"/> and <see cref="T:System.DateTimeOffset"/>
+            values for a round trip of serialization and deserialization.
+            </summary>
+        </member>
+        <member name="T:Cachetwo.Distributed.BinaryConvert.RoundTripBsonConvert.RoundTripContractResolver">
+            <summary>
+            A custom version of <see cref="T:Newtonsoft.Json.Serialization.DefaultContractResolver"/> that only serializes mutable properties.
+            </summary>
+        </member>
+        <member name="T:Cachetwo.Distributed.BinaryConvertDistributedCacheExtensions">
+            <summary>
+            Extension methods for <see cref="T:Microsoft.Extensions.Caching.Distributed.IDistributedCache"/> that handle conversion to and from byte arrays using <see cref="T:Cachetwo.Distributed.BinaryConvert"/>.
+            </summary>
+        </member>
+        <member name="M:Cachetwo.Distributed.BinaryConvertDistributedCacheExtensions.Get``1(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String)">
+            <summary>
+            Gets a <typeparamref name="TItem"/> value from the specified cache with the specified key.
+            </summary>
+            <typeparam name="TItem">The type of value to get.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to get the stored data for.</param>
+            <returns>The <typeparamref name="TItem"/> value from the stored cache key.</returns>
+        </member>
+        <member name="M:Cachetwo.Distributed.BinaryConvertDistributedCacheExtensions.TryGet``1(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,``0@)">
+            <summary>
+            Gets a <typeparamref name="TItem"/> value from the specified cache with the specified key if present.
+            </summary>
+            <remarks>
+            This method is primarily intended for non-nullable value types.
+            For nullable types, it's probably easier to use the normal <see cref="M:Cachetwo.Distributed.BinaryConvertDistributedCacheExtensions.Get``1(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String)"/> method and check the result for null.
+            </remarks>
+            <typeparam name="TItem">The type of value to get.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to get the stored data for.</param>
+            <param name="value">The <typeparamref name="TItem"/> value from the stored cache key.</param>
+            <returns>True if the key was found.</returns>
+        </member>
+        <member name="M:Cachetwo.Distributed.BinaryConvertDistributedCacheExtensions.GetAsync``1(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously gets a <typeparamref name="TItem"/> value from the specified cache with the specified key.
+            </summary>
+            <typeparam name="TItem">The type of value to get.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to get the stored data for.</param>
+            <param name="token">Optional. A <see cref="T:System.Threading.CancellationToken" /> to cancel the operation.</param>
+            <returns>A task that gets the <typeparamref name="TItem"/> value from the stored cache key.</returns>
+        </member>
+        <member name="M:Cachetwo.Distributed.BinaryConvertDistributedCacheExtensions.Set``1(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,``0)">
+            <summary>
+            Sets a <typeparamref name="TItem"/> in the specified cache with the specified key.
+            </summary>
+            <typeparam name="TItem">The type of value to store.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to store the data in.</param>
+            <param name="value">The data to store in the cache.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="key"/> or <paramref name="value"/> is null.</exception>
+        </member>
+        <member name="M:Cachetwo.Distributed.BinaryConvertDistributedCacheExtensions.SetAsync``1(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,``0,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously sets a <typeparamref name="TItem"/> in the specified cache with the specified key.
+            </summary>
+            <typeparam name="TItem">The type of value to store.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to store the data in.</param>
+            <param name="value">The data to store in the cache.</param>
+            <param name="token">Optional. A <see cref="T:System.Threading.CancellationToken" /> to cancel the operation.</param>
+            <returns>A task that represents the asynchronous set operation.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="key"/> or <paramref name="value"/> is null.</exception>
+        </member>
+        <member name="M:Cachetwo.Distributed.BinaryConvertDistributedCacheExtensions.Set``1(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,``0,System.DateTimeOffset)">
+            <summary>
+            Sets a <typeparamref name="TItem"/> in the specified cache with the specified key.
+            </summary>
+            <typeparam name="TItem">The type of value to store.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to store the data in.</param>
+            <param name="value">The data to store in the cache.</param>
+            <param name="absoluteExpiration"><see cref="P:Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions.AbsoluteExpiration"/></param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="key"/> or <paramref name="value"/> is null.</exception>
+        </member>
+        <member name="M:Cachetwo.Distributed.BinaryConvertDistributedCacheExtensions.SetAsync``1(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,``0,System.DateTimeOffset,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously sets a <typeparamref name="TItem"/> in the specified cache with the specified key.
+            </summary>
+            <typeparam name="TItem">The type of value to store.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to store the data in.</param>
+            <param name="value">The data to store in the cache.</param>
+            <param name="absoluteExpiration"><see cref="P:Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions.AbsoluteExpiration"/></param>
+            <param name="token">Optional. A <see cref="T:System.Threading.CancellationToken" /> to cancel the operation.</param>
+            <returns>A task that represents the asynchronous set operation.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="key"/> or <paramref name="value"/> is null.</exception>
+        </member>
+        <member name="M:Cachetwo.Distributed.BinaryConvertDistributedCacheExtensions.Set``1(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,``0,System.TimeSpan)">
+            <summary>
+            Sets a <typeparamref name="TItem"/> in the specified cache with the specified key.
+            </summary>
+            <typeparam name="TItem">The type of value to store.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to store the data in.</param>
+            <param name="value">The data to store in the cache.</param>
+            <param name="absoluteExpirationRelativeToNow"><see cref="P:Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions.AbsoluteExpirationRelativeToNow"/></param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="key"/> or <paramref name="value"/> is null.</exception>
+        </member>
+        <member name="M:Cachetwo.Distributed.BinaryConvertDistributedCacheExtensions.SetAsync``1(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,``0,System.TimeSpan,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously sets a <typeparamref name="TItem"/> in the specified cache with the specified key.
+            </summary>
+            <typeparam name="TItem">The type of value to store.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to store the data in.</param>
+            <param name="value">The data to store in the cache.</param>
+            <param name="absoluteExpirationRelativeToNow"><see cref="P:Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions.AbsoluteExpirationRelativeToNow"/></param>
+            <param name="token">Optional. A <see cref="T:System.Threading.CancellationToken" /> to cancel the operation.</param>
+            <returns>A task that represents the asynchronous set operation.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="key"/> or <paramref name="value"/> is null.</exception>
+        </member>
+        <member name="M:Cachetwo.Distributed.BinaryConvertDistributedCacheExtensions.Set``1(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,``0,Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
+            <summary>
+            Sets a <typeparamref name="TItem"/> in the specified cache with the specified key.
+            </summary>
+            <typeparam name="TItem">The type of value to store.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to store the data in.</param>
+            <param name="value">The data to store in the cache.</param>
+            <param name="options">The cache options for the entry.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="key"/> or <paramref name="value"/> is null.</exception>
+        </member>
+        <member name="M:Cachetwo.Distributed.BinaryConvertDistributedCacheExtensions.SetAsync``1(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,``0,Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously sets a <typeparamref name="TItem"/> in the specified cache with the specified key.
+            </summary>
+            <typeparam name="TItem">The type of value to store.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to store the data in.</param>
+            <param name="value">The data to store in the cache.</param>
+            <param name="options">The cache options for the entry.</param>
+            <param name="token">Optional. A <see cref="T:System.Threading.CancellationToken" /> to cancel the operation.</param>
+            <returns>A task that represents the asynchronous set operation.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="key"/> or <paramref name="value"/> is null.</exception>
+        </member>
+        <member name="M:Cachetwo.Distributed.BinaryConvertDistributedCacheExtensions.GetOrCreateIfNotDefault``1(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.Func{``0},System.DateTimeOffset)">
+            <summary>
+            Gets or sets an entry in the cache.
+            </summary>
+            <typeparam name="TItem">The type of value to get.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key identifying the entry.</param>
+            <param name="factory">Generates the value to set if there is no existing cache entry.</param>
+            <param name="absoluteExpiration"><see cref="P:Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions.AbsoluteExpiration"/></param>
+            <returns>The existing or newly set value.</returns>
+        </member>
+        <member name="M:Cachetwo.Distributed.BinaryConvertDistributedCacheExtensions.GetOrCreateIfNotDefaultAsync``1(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.Func{System.Threading.Tasks.Task{``0}},System.DateTimeOffset,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously gets or sets an entry in the cache.
+            </summary>
+            <typeparam name="TItem">The type of value to get.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key identifying the entry.</param>
+            <param name="factory">Generates the value to set if there is no existing cache entry.</param>
+            <param name="absoluteExpiration"><see cref="P:Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions.AbsoluteExpiration"/></param>
+            <param name="token">Optional. A <see cref="T:System.Threading.CancellationToken" /> to cancel the operation.</param>
+            <returns>A task that gets the existing or newly set value.</returns>
+        </member>
+        <member name="M:Cachetwo.Distributed.BinaryConvertDistributedCacheExtensions.GetOrCreateIfNotDefault``1(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.Func{``0},System.TimeSpan)">
+            <summary>
+            Gets or sets an entry in the cache.
+            </summary>
+            <typeparam name="TItem">The type of value to get.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key identifying the entry.</param>
+            <param name="factory">Generates the value to set if there is no existing cache entry.</param>
+            <param name="absoluteExpirationRelativeToNow"><see cref="P:Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions.AbsoluteExpirationRelativeToNow"/></param>
+            <returns>The existing or newly set value.</returns>
+        </member>
+        <member name="M:Cachetwo.Distributed.BinaryConvertDistributedCacheExtensions.GetOrCreateIfNotDefaultAsync``1(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.Func{System.Threading.Tasks.Task{``0}},System.TimeSpan,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously gets or sets an entry in the cache.
+            </summary>
+            <typeparam name="TItem">The type of value to get.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key identifying the entry.</param>
+            <param name="factory">Generates the value to set if there is no existing cache entry.</param>
+            <param name="absoluteExpirationRelativeToNow"><see cref="P:Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions.AbsoluteExpirationRelativeToNow"/></param>
+            <param name="token">Optional. A <see cref="T:System.Threading.CancellationToken" /> to cancel the operation.</param>
+            <returns>A task that gets the existing or newly set value.</returns>
+        </member>
+        <member name="M:Cachetwo.Distributed.BinaryConvertDistributedCacheExtensions.GetOrCreateIfNotDefault``1(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.Func{Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,``0})">
+            <summary>
+            Gets or sets an entry in the cache.
+            </summary>
+            <typeparam name="TItem">The type of value to get.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key identifying the entry.</param>
+            <param name="factory">Generates the value to set if there is no existing cache entry.</param>
+            <returns>The existing or newly set value.</returns>
+        </member>
+        <member name="M:Cachetwo.Distributed.BinaryConvertDistributedCacheExtensions.GetOrCreateIfNotDefaultAsync``1(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.Func{Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,System.Threading.Tasks.Task{``0}},System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously gets or sets an entry in the cache.
+            </summary>
+            <typeparam name="TItem">The type of value to get.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">An object identifying the entry.</param>
+            <param name="factory">A factory that returns the value to set and/or modifies the cache entry options.</param>
+            <param name="token">Optional. A <see cref="T:System.Threading.CancellationToken" /> to cancel the operation.</param>
+            <returns>A task that gets the existing or newly set value.</returns>
+        </member>
+        <member name="T:Cachetwo.Memory.MemoryCacheExtensions">
+            <summary>
+            Extension methods for <see cref="T:Microsoft.Extensions.Caching.Memory.IMemoryCache"/> (to augment the ones in <see cref="T:Microsoft.Extensions.Caching.Memory.CacheExtensions"/>).
+            </summary>
+        </member>
+        <member name="M:Cachetwo.Memory.MemoryCacheExtensions.GetOrCreate``1(Microsoft.Extensions.Caching.Memory.IMemoryCache,System.Object,System.Func{``0},System.DateTimeOffset)">
+            <summary>
+            Gets or sets an entry in the cache.
+            </summary>
+            <typeparam name="TItem">The type of value to get.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key identifying the entry.</param>
+            <param name="factory">Generates the value to set if there is no existing cache entry.</param>
+            <param name="absoluteExpiration"><see cref="P:Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions.AbsoluteExpiration"/></param>
+            <returns>The existing or newly set value.</returns>
+        </member>
+        <member name="M:Cachetwo.Memory.MemoryCacheExtensions.GetOrCreateAsync``1(Microsoft.Extensions.Caching.Memory.IMemoryCache,System.Object,System.Func{System.Threading.Tasks.Task{``0}},System.DateTimeOffset)">
+            <summary>
+            Asynchronously gets or sets an entry in the cache.
+            </summary>
+            <typeparam name="TItem">The type of value to get.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">An object identifying the entry.</param>
+            <param name="factory">A factory that returns the value to set and/or modifies the cache entry options.</param>
+            <param name="absoluteExpiration"><see cref="P:Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions.AbsoluteExpiration"/></param>
+            <returns>A task that gets the existing or newly set value.</returns>
+        </member>
+        <member name="M:Cachetwo.Memory.MemoryCacheExtensions.GetOrCreate``1(Microsoft.Extensions.Caching.Memory.IMemoryCache,System.Object,System.Func{``0},System.TimeSpan)">
+            <summary>
+            Gets or sets an entry in the cache.
+            </summary>
+            <typeparam name="TItem">The type of value to get.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key identifying the entry.</param>
+            <param name="factory">Generates the value to set if there is no existing cache entry.</param>
+            <param name="absoluteExpirationRelativeToNow"><see cref="P:Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions.AbsoluteExpirationRelativeToNow"/></param>
+            <returns>The existing or newly set value.</returns>
+        </member>
+        <member name="M:Cachetwo.Memory.MemoryCacheExtensions.GetOrCreateAsync``1(Microsoft.Extensions.Caching.Memory.IMemoryCache,System.Object,System.Func{System.Threading.Tasks.Task{``0}},System.TimeSpan)">
+            <summary>
+            Asynchronously gets or sets an entry in the cache.
+            </summary>
+            <typeparam name="TItem">The type of value to get.</typeparam>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">An object identifying the entry.</param>
+            <param name="factory">A factory that returns the value to set and/or modifies the cache entry options.</param>
+            <param name="absoluteExpirationRelativeToNow"><see cref="P:Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions.AbsoluteExpirationRelativeToNow"/></param>
+            <returns>A task that gets the existing or newly set value.</returns>
+        </member>
+    </members>
+</doc>
